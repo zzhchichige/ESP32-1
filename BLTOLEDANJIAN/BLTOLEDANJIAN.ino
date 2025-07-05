@@ -106,7 +106,7 @@ void setup() {
   SerialBT.begin("ESP32test"); //Bluetooth device name
   Serial.println("The device started, now you can pair it with bluetooth!");
   st1.setxyTH(700);     // 设置st1摇杆作为方向按键使用的触发偏离阈值
-  st2.setxyTH(1800);    // 设置st2摇杆作为方向按键使用的触发偏离阈值
+  st2.setxyTH(700);    // 设置st2摇杆作为方向按键使用的触发偏离阈值
   Serial.print("<==手柄初始化完成==>\n请两个摇杆同时向上推使设备启用\nwaiting...\n");
   while (!st1.upbtn || !st2.upbtn)
   {
@@ -210,12 +210,12 @@ void loop() {
   st2.data_update(); // 获取st2摇杆的实时状态
 
  /*输出st1摇杆的x、y、中键原始值*/
- Serial.print("st2.x: ");
- Serial.print(st2.xval);
- Serial.print("\tst2.y: ");
- Serial.print(st2.yval);
-  Serial.print("\tst2.middle: ");
- Serial.println(st2.mval);
+  // Serial.print("st2.x: ");
+  // Serial.print(st2.xval);
+  // Serial.print("\tst2.y: ");
+  // Serial.print(st2.yval);
+  //  Serial.print("\tst2.middle: ");
+  // Serial.println(st2.mval);
 
   /*输出st1摇杆作为方向键的实时状态*/
    if (st1.upbtn)
@@ -234,34 +234,81 @@ void loop() {
      {Serial.println("st1.mbtn");
    SerialBT.println("st1.mbtn");
      }
-     
+
+     if (st2.upbtn)
+     {Serial.println("st2.upbtn");
+  SerialBT.println("st2.upbtn");
+     }
+     if (st2.dwbtn)
+  {   Serial.println("st2.dwbtn");
+   SerialBT.println("st2.dwbtn");
+ }
+ if (st2.lfbtn)
+     {Serial.println("st2.lfbtn");
+   SerialBT.println("st2.lfbtn");
+     }
+     if (st2.rgbtn)
+     {Serial.println("st2.rgbtn");
+   SerialBT.println("st2.rgbtn");
+     }
+     if (st2.mbtn)
+     {Serial.println("st2.mbtn");
+   SerialBT.println("st2.mbtn");
+     }
+
+
   /*输出st1摇杆作为按键使用的按下情况*/
-  // if (st1.upbtn_press)
-  //   Serial.println("st1.upbtn_press");
-  // if (st1.dwbtn_press)
-  //   Serial.println("st1.dwbtn_press");
-  // if (st1.lfbtn_press)
-  //   Serial.println("st1.lfbtn_press");
-  // if (st1.rgbtn_press)
-  //   Serial.println("st1.rgbtn_press");
-  // if (st1.mbtn_press)
-  //   Serial.println("st1.mbtn_press");
+ if (st1.upbtn_press)
+   Serial.println("st1.upbtn_press");
+ if (st1.dwbtn_press)
+    Serial.println("st1.dwbtn_press");
+ if (st1.lfbtn_press)
+   Serial.println("st1.lfbtn_press");
+  if (st1.rgbtn_press)
+    Serial.println("st1.rgbtn_press");
+  if (st1.mbtn_press)
+    Serial.println("st1.mbtn_press");
 
   /*输出st1摇杆作为按键使用的释放情况*/
-  // if (st1.upbtn_release)
-  //   Serial.println("st1.upbtn_release");
-  // if (st1.dwbtn_release)
-  //   Serial.println("st1.dwbtn_release");
-  // if (st1.lfbtn_release)
-  //   Serial.println("st1.lfbtn_release");
-  // if (st1.rgbtn_release)
-  //   Serial.println("st1.rgbtn_release");
-  // if (st1.mbtn_release)
-  //   Serial.println("st1.mbtn_release");
-  // draw the current demo method
+ if (st1.upbtn_release)
+   Serial.println("st1.upbtn_release");
+ if (st1.dwbtn_release)
+    Serial.println("st1.dwbtn_release");
+ 
+  if (st1.lfbtn_release)
+ 
+    Serial.println("st1.lfbtn_release");
+ 
+  if (st1.rgbtn_release)
+ 
+    Serial.println("st1.rgbtn_release");
+ 
+  if (st1.mbtn_release)
+ 
+    Serial.println("st1.mbtn_release");
+ 
+  //draw the current demo method
  // demos[demoMode]();
     display.setColor(WHITE);
     display.drawString(2,2,"hello");
+    // 每个方向一行
+  if (st1.upbtn)
+    display.drawString(10, 18, "up");
+  if (st1.dwbtn)
+    display.drawString(10, 24, "dw");
+  if (st1.lfbtn)
+    display.drawString(5, 24, "lf");
+  if (st1.rgbtn)
+    display.drawString(15, 24, "rg");
+
+  if (st2.upbtn)
+    display.drawString(55, 18, "up");
+  if (st2.dwbtn)
+    display.drawString(55, 24, "dw");
+  if (st2.lfbtn)
+    display.drawString(50, 24, "lf");
+  if (st2.rgbtn)
+    display.drawString(60, 24, "rg");
  // display.setFont(ArialMT_Plain_10);
   //display.setTextAlignment(TEXT_ALIGN_RIGHT);
   //display.drawString(128, 54, String(millis()));
